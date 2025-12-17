@@ -4,10 +4,11 @@
 
 body {
   margin: 0;
-  background: linear-gradient(90deg, #2B5C8B, #F299A8);
+  background: linear-gradient(to bottom, #0D1B2A, #F7CAC9);
   color: #fff;
   font-family: "Cormorant Garamond", serif;
-  overflow: auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 canvas {
@@ -15,24 +16,21 @@ canvas {
   top: 0;
   left: 0;
   pointer-events: none;
+  z-index: 0;
 }
 
 .content {
   position: relative;
   z-index: 2;
-  height: 100vh;
-  padding: 24px;
+  height: calc(var(--vh, 1vh) * 100); /* dynamische Höhe */
+  padding: 24px 16px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  pointer-events: auto;
-  min-height: 100vh;      /* statt height: 100vh */
-  padding: 24px 16px;     /* oben/unten Puffer */
-  flex-direction: column; /* optional, für bessere Verteilung */
 }
 
-/* BRIEF – schwebend */
 .envelope {
   max-width: 420px;
   transform: translateY(-120vh);
@@ -40,11 +38,6 @@ canvas {
   pointer-events: none;
 }
 
-.envelope.fly-in {
-  transform: translateY(0);
-}
-
-/* TEXTE */
 .step {
   font-size: 1.35rem;
   line-height: 1.65;
@@ -52,27 +45,8 @@ canvas {
   transform: translateY(8px);
   transition: opacity 1.6s ease, transform 1.6s ease;
   margin-bottom: 1.3rem;
-  text-shadow: 0 0 18px rgba(0,0,0,0.5);
+  text-shadow: 0 0 10px rgba(0,0,0,0.5);
   color: #fff;
-}
-
-/* Letzter Satz als Gradient + Shadow + leichter Glow */
-.final {
-  font-size: 1.6rem;
-  font-style: italic;
-  margin-top: 2rem;
-  color: #2B5C8B; /* dunkles Blau, sehr gut auf Rosé sichtbar */
-  text-shadow: 0 0 12px rgba(0,0,0,0.7);
-  padding: 2px 6px;
-  border-radius: 6px;
-  display: inline-block;
-}
-
-
-
-@keyframes pulseGradient {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 100% 50%; }
 }
 
 .step.show {
@@ -80,7 +54,25 @@ canvas {
   transform: translateY(0);
 }
 
-/* TAP */
+.final {
+  font-size: 1.6rem;
+  font-style: italic;
+  margin-top: 2rem;
+  background: linear-gradient(90deg, #2B5C8B, #F299A8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 16px rgba(0,0,0,0.85);
+  padding: 2px 6px;
+  border-radius: 6px;
+  display: inline-block;
+  animation: pulseGradient 4s infinite alternate;
+}
+
+@keyframes pulseGradient {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
 .tap {
   position: absolute;
   bottom: 32px;
@@ -97,4 +89,9 @@ canvas {
 
 .hidden {
   display: none;
+}
+
+@media (max-width: 480px) {
+  .step { font-size: 1.1rem; line-height: 1.45; }
+  .final { font-size: 1.4rem; }
 }
