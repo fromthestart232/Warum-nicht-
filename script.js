@@ -1,12 +1,13 @@
 const canvas = document.getElementById("stars");
 const ctx = canvas.getContext("2d");
 
-function resize() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+// Dynamische Höhe für Handys
+function setContentHeight() {
+  const vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
 }
-resize();
-window.addEventListener("resize", resize);
+setContentHeight();
+window.addEventListener('resize', setContentHeight);
 
 // Sterne
 const stars = Array.from({ length: 120 }, () => {
@@ -26,7 +27,6 @@ let particleList = [];
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Sterne
   stars.forEach(star => {
     star.y += star.s;
     if (star.y > canvas.height) star.y = 0;
@@ -36,12 +36,11 @@ function draw() {
     ctx.fill();
   });
 
-  // Partikel
   for (let i = particleList.length - 1; i >= 0; i--) {
     const p = particleList[i];
     p.x += p.vx;
     p.y += p.vy;
-    p.alpha -= 0.008;        // langsam verblassen
+    p.alpha -= 0.008; // langsam verblassen
     if (p.alpha < 0) p.alpha = 0;
     drawParticle(p);
     if (p.alpha === 0) particleList.splice(i, 1);
@@ -50,7 +49,7 @@ function draw() {
   requestAnimationFrame(draw);
 }
 
-// Zeichne Herz
+// Herz zeichnen
 function drawParticle(p) {
   ctx.save();
   ctx.globalAlpha = p.alpha;
