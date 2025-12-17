@@ -7,7 +7,7 @@ body {
   background: linear-gradient(90deg, #2B5C8B, #F299A8);
   color: #fff;
   font-family: "Cormorant Garamond", serif;
-  overflow: hidden;
+  overflow: auto;
 }
 
 canvas {
@@ -27,6 +27,9 @@ canvas {
   align-items: center;
   text-align: center;
   pointer-events: auto;
+  min-height: 100vh;      /* statt height: 100vh */
+  padding: 24px 16px;     /* oben/unten Puffer */
+  flex-direction: column; /* optional, für bessere Verteilung */
 }
 
 /* BRIEF – schwebend */
