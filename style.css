@@ -1,0 +1,97 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: linear-gradient(90deg, #2B5C8B, #F299A8);
+  color: #fff;
+  font-family: "Cormorant Garamond", serif;
+  overflow: hidden;
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  height: 100vh;
+  padding: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  pointer-events: auto;
+}
+
+/* BRIEF – schwebend */
+.envelope {
+  max-width: 420px;
+  transform: translateY(-120vh);
+  transition: transform 2.6s ease;
+  pointer-events: none;
+}
+
+.envelope.fly-in {
+  transform: translateY(0);
+}
+
+/* TEXTE */
+.step {
+  font-size: 1.35rem;
+  line-height: 1.65;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 1.6s ease, transform 1.6s ease;
+  margin-bottom: 1.3rem;
+  text-shadow: 0 0 18px rgba(0,0,0,0.5);
+  color: #fff;
+}
+
+/* Letzter Satz als Gradient + Shadow + leichter Glow */
+.final {
+  font-size: 1.6rem;
+  font-style: italic;
+  margin-top: 2rem;
+  color: #2B5C8B; /* dunkles Blau, sehr gut auf Rosé sichtbar */
+  text-shadow: 0 0 12px rgba(0,0,0,0.7);
+  padding: 2px 6px;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+
+
+@keyframes pulseGradient {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+.step.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* TAP */
+.tap {
+  position: absolute;
+  bottom: 32px;
+  font-size: 1rem;
+  opacity: 0.6;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+  100% { opacity: 0.3; }
+}
+
+.hidden {
+  display: none;
+}
